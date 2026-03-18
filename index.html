@@ -70,21 +70,25 @@
 <div class="inventory">
     <h2>Inventario</h2>
 
-    <!-- Ideas -->
+    <!-- IDEAS -->
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="idea">Restaurante</div>
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="idea">Empresa de software</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="idea">Taller mecánico</div>
 
-    <!-- Tierra -->
+    <!-- TIERRA -->
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="tierra">Local</div>
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="tierra">Oficina</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="tierra">Garaje</div>
 
-    <!-- Capital -->
+    <!-- CAPITAL -->
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="capital">Horno</div>
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="capital">Computadora</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="capital">Herramientas</div>
 
-    <!-- Trabajo -->
+    <!-- TRABAJO -->
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="trabajo">Cocinero</div>
     <div class="item" draggable="true" ondragstart="drag(event)" data-type="trabajo">Programador</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="trabajo">Mecánico</div>
 </div>
 
 <button onclick="evaluar()">Evaluar Empresa</button>
@@ -123,23 +127,36 @@ function evaluar() {
 
     let resultado = document.getElementById("resultado");
 
+    // RESTAURANTE
     if (
         idea.includes("Restaurante") &&
         tierra.includes("Local") &&
         capital.includes("Horno") &&
         trabajo.includes("Cocinero")
     ) {
-        resultado.innerHTML = "✅ Empresa correcta: Restaurante funcionando!";
+        resultado.innerHTML = "✅ Restaurante funcionando!";
         resultado.style.color = "green";
     }
 
+    // SOFTWARE
     else if (
         idea.includes("software") &&
         tierra.includes("Oficina") &&
         capital.includes("Computadora") &&
         trabajo.includes("Programador")
     ) {
-        resultado.innerHTML = "✅ Empresa correcta: Empresa de software!";
+        resultado.innerHTML = "✅ Empresa de software creada!";
+        resultado.style.color = "green";
+    }
+
+    // TALLER MECÁNICO
+    else if (
+        idea.includes("Taller") &&
+        tierra.includes("Garaje") &&
+        capital.includes("Herramientas") &&
+        trabajo.includes("Mecánico")
+    ) {
+        resultado.innerHTML = "✅ Taller mecánico listo!";
         resultado.style.color = "green";
     }
 
