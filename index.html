@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Startup Quest</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        text-align: center;
+    }
+    h1 {
+        color: #2c3e50;
+    }
+    .container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+    .box {
+        width: 22%;
+        min-height: 200px;
+        border: 2px dashed #aaa;
+        padding: 10px;
+        background: white;
+        border-radius: 10px;
+    }
+    .item {
+        padding: 8px;
+        margin: 5px;
+        background: #3498db;
+        color: white;
+        border-radius: 5px;
+        cursor: grab;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .inventory {
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎮 Startup Quest</h1>
+<p>Arrastrá los elementos para crear una empresa coherente</p>
+
+<div class="container">
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)" id="idea">
+        <h3>💡 Idea</h3>
+    </div>
+
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)" id="tierra">
+        <h3>🌍 Tierra</h3>
+    </div>
+
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)" id="capital">
+        <h3>💰 Capital</h3>
+    </div>
+
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)" id="trabajo">
+        <h3>👷 Trabajo</h3>
+    </div>
+</div>
+
+<div class="inventory">
+    <h2>Inventario</h2>
+
+    <!-- Ideas -->
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="idea">Restaurante</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="idea">Empresa de software</div>
+
+    <!-- Tierra -->
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="tierra">Local</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="tierra">Oficina</div>
+
+    <!-- Capital -->
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="capital">Horno</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="capital">Computadora</div>
+
+    <!-- Trabajo -->
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="trabajo">Cocinero</div>
+    <div class="item" draggable="true" ondragstart="drag(event)" data-type="trabajo">Programador</div>
+</div>
+
+<button onclick="evaluar()">Evaluar Empresa</button>
+
+<div class="result" id="resultado"></div>
+
+<script>
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.innerText);
+    ev.dataTransfer.setData("type", ev.target.dataset.type);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+    let type = ev.dataTransfer.getData("type");
+
+    if (ev.target.id === type) {
+        ev.target.innerHTML = "<h3>" + ev.target.querySelector("h3").innerText + "</h3>" + data;
+    } else {
+        alert("❌ Ese elemento no pertenece a esta categoría");
+    }
+}
+
+function evaluar() {
+
+    let idea = document.getElementById("idea").innerText;
+    let tierra = document.getElementById("tierra").innerText;
+    let capital = document.getElementById("capital").innerText;
+    let trabajo = document.getElementById("trabajo").innerText;
+
+    let resultado = document.getElementById("resultado");
+
+    if (
+        idea.includes("Restaurante") &&
+        tierra.includes("Local") &&
+        capital.includes("Horno") &&
+        trabajo.includes("Cocinero")
+    ) {
+        resultado.innerHTML = "✅ Empresa correcta: Restaurante funcionando!";
+        resultado.style.color = "green";
+    }
+
+    else if (
+        idea.includes("software") &&
+        tierra.includes("Oficina") &&
+        capital.includes("Computadora") &&
+        trabajo.includes("Programador")
+    ) {
+        resultado.innerHTML = "✅ Empresa correcta: Empresa de software!";
+        resultado.style.color = "green";
+    }
+
+    else {
+        resultado.innerHTML = "❌ Los factores no son coherentes";
+        resultado.style.color = "red";
+    }
+}
+
+</script>
+
+</body>
+</html>
