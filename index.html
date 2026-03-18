@@ -35,8 +35,12 @@
     }
     .result {
         margin-top: 20px;
-        font-size: 20px;
+        font-size: 32px; /* MÁS GRANDE */
         font-weight: bold;
+    }
+    .timer {
+        font-size: 22px;
+        margin-top: 10px;
     }
     .inventory {
         margin-top: 20px;
@@ -48,6 +52,8 @@
 
 <h1>🎮 Startup Quest</h1>
 <p>Arrastrá los elementos para crear una empresa coherente</p>
+
+<div class="timer">⏱ Tiempo: <span id="tiempo">0</span> s</div>
 
 <div class="container">
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)" id="idea">
@@ -97,6 +103,13 @@
 
 <script>
 
+// TIMER
+let tiempo = 0;
+let intervalo = setInterval(() => {
+    tiempo++;
+    document.getElementById("tiempo").innerText = tiempo;
+}, 1000);
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -120,6 +133,8 @@ function drop(ev) {
 
 function evaluar() {
 
+    clearInterval(intervalo); // DETIENE EL TIMER
+
     let idea = document.getElementById("idea").innerText;
     let tierra = document.getElementById("tierra").innerText;
     let capital = document.getElementById("capital").innerText;
@@ -134,7 +149,7 @@ function evaluar() {
         capital.includes("Horno") &&
         trabajo.includes("Cocinero")
     ) {
-        resultado.innerHTML = "✅ Restaurante funcionando!";
+        resultado.innerHTML = `✅ Restaurante funcionando! ⏱ ${tiempo}s`;
         resultado.style.color = "green";
     }
 
@@ -145,7 +160,7 @@ function evaluar() {
         capital.includes("Computadora") &&
         trabajo.includes("Programador")
     ) {
-        resultado.innerHTML = "✅ Empresa de software creada!";
+        resultado.innerHTML = `✅ Empresa de software creada! ⏱ ${tiempo}s`;
         resultado.style.color = "green";
     }
 
@@ -156,12 +171,12 @@ function evaluar() {
         capital.includes("Herramientas") &&
         trabajo.includes("Mecánico")
     ) {
-        resultado.innerHTML = "✅ Taller mecánico listo!";
+        resultado.innerHTML = `✅ Taller mecánico listo! ⏱ ${tiempo}s`;
         resultado.style.color = "green";
     }
 
     else {
-        resultado.innerHTML = "❌ Los factores no son coherentes";
+        resultado.innerHTML = `❌ Incorrecto ⏱ ${tiempo}s`;
         resultado.style.color = "red";
     }
 }
